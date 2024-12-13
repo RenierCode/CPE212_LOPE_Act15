@@ -1,0 +1,16 @@
+---
+- name: Install Cinder (Ubuntu)
+  tags: ubuntu
+  apt:
+    name:
+      - cinder-volume
+      - python3-mysqldb
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: Start Cinder Service
+  systemd:
+    name: cinder-volume
+    state: restarted
+    enabled: yes
+  when: ansible_distribution == "Ubuntu"

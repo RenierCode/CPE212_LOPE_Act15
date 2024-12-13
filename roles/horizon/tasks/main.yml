@@ -1,0 +1,16 @@
+---
+- name: Install Horizon (Ubuntu)
+  tags: ubuntu, horizon
+  apt:
+    name:
+      - openstack-dashboard
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: Restart apache service (Ubuntu)
+  tags: ubuntu, horizon
+  systemd:
+    name: apache2
+    state: restarted
+    enabled: yes
+  when: ansible_distribution == "Ubuntu"

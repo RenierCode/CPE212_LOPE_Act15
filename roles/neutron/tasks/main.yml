@@ -1,0 +1,20 @@
+---
+- name: Install Neutron (Ubuntu)
+  tags: ubuntu, neutron
+  apt:
+    name:
+      - neutron-server
+      - neutron-plugin-ml2
+      - neutron-dhcp-agent
+      - neutron-l3-agent
+      - neutron-linuxbridge-agent
+      - python3-neutronclient
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: Start Neutron Service
+  systemd:
+    name: neutron-server
+    state: restarted
+    enabled: yes
+  when: ansible_distribution == "Ubuntu"
